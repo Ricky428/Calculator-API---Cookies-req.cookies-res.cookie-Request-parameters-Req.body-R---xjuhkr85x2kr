@@ -79,7 +79,7 @@ app.post('/add', (req,res,next)=> {
     next();
 })
 
-app.post('/sub', (req,res)=> {
+app.post('/sub', (req,res,next)=> {
     const{num1,num2} = req.body;
     const difference = num1 - num2;
     
@@ -120,7 +120,7 @@ app.post('/divide', (req,res,next)=> {
     next();
 })
 
-app.use(() => {
+app.use((req,res) => {
     let{sum,difference,result} = req._payload;
     let value  = sum || difference || result;
 
@@ -131,7 +131,7 @@ app.use(() => {
         res.send({status : "error", message : "Overflow"});
     }
     else {
-        res.send(req_payload);
+        res.send(req._payload);
     }
 })
 app.listen(port, () => console.log(`App listening on port ${port}!`))
